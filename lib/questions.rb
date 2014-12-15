@@ -125,68 +125,91 @@ def get_elements_until_greater_than_five(array)
   end
 end
 
-# turn an array (with an even number of elements) into a hash, by
-# pairing up elements. e.g. ['a', 'b', 'c', 'd'] becomes
-# {'a' => 'b', 'c' => 'd'}
 def convert_array_to_a_hash(array)
+  Hash[*array]
 end
 
-# get all the letters used in an array of words and return
-# it as a array of letters, in alphabetical order
-# . e.g. the array ['cat', 'dog', 'fish'] becomes
-# ['a', 'c', 'd', 'f', 'g', 'h', 'i', 'o', 's', 't']
 def get_all_letters_in_array_of_words(array)
+  new_array =[]
+  # temp_array = []
+  # array.each do |item|
+  #   temp_array << item.split(//)
+  #   temp_array.each do |letter|
+  #     new_array << letter unless temp_array.include?(letter)
+  #   end
+  # end
+  # temp_array.flatten.sort
+  array.each do |item|
+    new_array << item.split(//)
+  end
+  new_array.flatten.uniq.sort
 end
 
-# swap the keys and values in a hash. e.g.
-# {'a' => 'b', 'c' => 'd'} becomes
-# {'b' => 'a', 'd' => 'c'}
 def swap_keys_and_values_in_a_hash(hash)
+  new_hash= Hash.new
+  hash.each{|key, value| new_hash[value]=key}
+  new_hash
 end
 
 # in a hash where the keys and values are all numbers
 # add all the keys and all the values together, e.g.
 # {1 => 1, 2 => 2} becomes 6
 def add_together_keys_and_values(hash)
+  total = 0
+  hash.each do |key, value| 
+    total += key + value
+  end
+  total
 end
 
-# take out all the capital letters from a string
-# so 'Hello JohnDoe' becomes 'ello ohnoe'
 def remove_capital_letters_from_string(string)
+  array = string.split(//)
+  array.each do |letter|
+    if letter === letter.capitalize && letter!=" "
+      number = array.index(letter)
+      array.delete(letter)
+    end
+  end
+  array.join
 end
 
-# round up a float up and convert it to an Integer,
-# so 3.214 becomes 4
 def round_up_number(float)
+  float.ceil
 end
 
-# round down a float up and convert it to an Integer,
-# so 9.52 becomes 9
 def round_down_number(float)
+  float.to_i
 end
 
-# take a date and format it like dd/mm/yyyy, so Halloween 2013
-# becomes 31/10/2013
 def format_date_nicely(date)
+  date.strftime("%d/%m/%Y")
 end
 
-# get the domain name *without* the .com part, from an email address
-# so alex@makersacademy.com becomes makersacademy
 def get_domain_name_from_email_address(email)
+  email = email.split('@').last
+  email = email.split('.').first
 end
 
-# capitalize the first letter in each word of a string, 
-#  except 'a', 'and' and 'the'
-# *unless* they come at the start of the start of the string, e.g.
-# 'the lion the witch and the wardrobe' becomes
-# 'The Lion the Witch and the Wardrobe'
 def titleize_a_string(string)
+  new_array = []
+  string.capitalize!
+  string = string.split
+  string.each do |word|
+    if word != 'the' && word != 'and' && word !='a'
+      new_array << word.capitalize
+    else
+      new_array << word
+    end
+  end
+  new_array.join(" ")
 end
 
 # return true if a string contains any special characters
 # where 'special character' means anything apart from the letters
 # a-z (uppercase and lower) or numbers
 def check_a_string_for_special_characters(string)
+  return true if string=~/\W/
+  false
 end
 
 # get the upper limit of a range. e.g. for the range 1..20, you
